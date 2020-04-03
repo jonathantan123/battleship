@@ -32,7 +32,7 @@ class Game extends React.Component {
       this.setState({ activePlayer: "Player 1" });
     }
 
-    state[row][col] = value;
+    state[row][col].value = value;
     this.setState({ shipsBoard: state });
   };
 

@@ -1,42 +1,38 @@
 import React from "react";
 import "./gridSquare.css";
 
-
-
-class GridSquare extends React.Component {
-
+function GridSquare(props) {
   
+  let updateClassName = square => {
 
-  updateClassName = (square) => {
-    let className = "square";
-    
-     
-    
-   if(square !== "null") {
-     className += " occupied"
-   }
+    let className 
 
-  
+    // if (square !== "null") {
+    //   className += " occupied";
+    // } 
+
+    if(square.hover === true) { 
+      className = "active"
+    } else if (square.value === "null")  {
+      className = "square"
+    } else { 
+      className = "occupied"
+    }
+
     return className;
   };
 
+  return (
+    <div
+      onClick={props.clickHandler}
+      className={updateClassName(props.value)}
+      data-row={props.row}
+      data-col={props.column}
+      data-value={props.value}
+      data-coord={props.coordinates}
+      // onMouseOver={props.handleHover}
+    ></div>
+  );
+}
 
-    render() {
-      
-      return (
-      
-      <div
-      onClick= {this.props.clickHandler}
-      className= {this.updateClassName(this.props.value)}
-      data-row = {this.props.row}
-      data-col = {this.props.column}
-      data-value = {this.props.value}
-      data-coord = {this.props.coordinates}
-      >
-          
-    </div>)
-    }
-  }
-  
-  export default GridSquare;
-  
+export default GridSquare;

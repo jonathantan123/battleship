@@ -1,11 +1,13 @@
 import React from "react";
 import "./missleBoardSquare.css";
 
-class MissleBoardSquare extends React.Component {
-  updateClassName = square => {
+function MissleBoardSquare(props) {
+  let updateClassName = square => {
+      
+      
     let className = "square";
 
-    switch (square) {
+    switch (square.value) {
       case "hit":
         className += "hit";
         break;
@@ -20,18 +22,16 @@ class MissleBoardSquare extends React.Component {
     return className;
   };
 
-  render() {
-    return (
-      <div
-        onClick={this.props.clickHandler}
-        className={this.updateClassName(this.props.value)}
-        data-row={this.props.row}
-        data-col={this.props.column}
-        data-value={this.props.value}
-        data-coord={this.props.coordinates}
-      ></div>
-    );
-  }
+  return (
+    <div
+      onClick={props.clickHandler}
+      className={updateClassName(props.value)}
+      data-row={props.row}
+      data-col={props.column}
+      data-value={props.value}
+      data-coord={props.coordinates}
+    ></div>
+  );
 }
 
 export default MissleBoardSquare;

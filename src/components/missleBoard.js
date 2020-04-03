@@ -2,6 +2,8 @@ import React from "react";
 import "./shipBoard.css";
 import MissleBoardSquare from "./missleBoardSquare";
 
+
+
 class MissleBoard extends React.Component {
   state = {
     totalShips: 5
@@ -23,12 +25,12 @@ class MissleBoard extends React.Component {
     });
 
     if (sunk) {
-      alert("sunk!");
+      alert("Sunk!");
       this.setState({ totalShips: this.state.totalShips - 1 }, () =>
         this.checkWin()
       );
     } else {
-      alert("hit");
+      alert("Hit!");
     }
   };
 
@@ -51,7 +53,7 @@ class MissleBoard extends React.Component {
       );
 
       if (hit.status === "hit") {
-        alert("you've already hit here");
+        alert("You've already hit here!");
         return;
       } else {
         hit.status = "hit";
@@ -60,7 +62,7 @@ class MissleBoard extends React.Component {
       }
     } else {
       value = "miss";
-      alert("miss");
+      alert("Miss!");
     }
 
     this.props.updateGrid(e, value);
@@ -74,6 +76,7 @@ class MissleBoard extends React.Component {
     ;
     return this.props.opponent.shipsBoard.map((row, i) => {
       return row.map((square, c) => {
+          
         return (
           <MissleBoardSquare
             key={`(${i},${c})`}

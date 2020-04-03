@@ -4,5 +4,11 @@
 
 .occupied {
     background-color: red;
+    border: 1px solid black;
 }
+.active {
+    background-color: gray;
+}
+
+
 

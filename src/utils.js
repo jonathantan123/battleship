@@ -6,7 +6,7 @@ export function gridGenerator() {
     for (let r = 0; r < length; r++) {
       let row = [];
       for (let c = 0; c < length; c++) {
-        row.push("null");
+        row.push({value: "null", hover: false, occupied: false});
       }
       grid.push(row);
     }
