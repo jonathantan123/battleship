@@ -2,21 +2,15 @@ import React from "react";
 import "./gridSquare.css";
 
 function GridSquare(props) {
-  
   let updateClassName = square => {
+    let className;
 
-    let className 
-
-    // if (square !== "null") {
-    //   className += " occupied";
-    // } 
-
-    if(square.hover === true) { 
-      className = "active"
-    } else if (square.value === "null")  {
-      className = "square"
-    } else { 
-      className = "occupied"
+    if (square.hover === true) {
+      className = "active";
+    } else if (square.value === "null") {
+      className = "square";
+    } else {
+      className = "occupied";
     }
 
     return className;

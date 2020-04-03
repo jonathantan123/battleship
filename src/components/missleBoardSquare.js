@@ -3,8 +3,6 @@ import "./missleBoardSquare.css";
 
 function MissleBoardSquare(props) {
   let updateClassName = square => {
-      
-      
     let className = "square";
 
     switch (square.value) {

@@ -12,6 +12,8 @@ class ShipBoard extends React.Component {
     ships: shipGenerator()
   };
 
+
+  //// First checks to see if a ship already exists in the spot. Then, checks to see if the potential ship is within bounds. If in bounds, update the state of the board with coordinates of new ship. 
   placeShip = (e, horizantal, currentShip) => {
     let col = parseInt(e.target.dataset.col);
     let row = parseInt(e.target.dataset.row);
@@ -73,6 +75,8 @@ class ShipBoard extends React.Component {
     }
   };
 
+  /// save positions of each ship into ships array. 
+
   setPositions = (positions, currentShip) => {
     let ships = [...this.state.ships];
     let ship = ships[currentShip];
@@ -81,6 +85,26 @@ class ShipBoard extends React.Component {
 
     this.setState({ ships });
   };
+
+  /// Increments current ship and check to see if anyships left to place. Sets the phase to missile firing after both players have gone. 
+
+  setCurrentShip = currentShip => {
+    if (this.state.currentShip < this.state.ships.length - 1) {
+      this.setState({ currentShip: currentShip + 1 });
+    } else {
+      this.setState(
+        {
+          board: gridGenerator(),
+          horizantal: true,
+          currentShip: 0,
+          ships: shipGenerator()
+        },
+        () => this.props.updatePhase()
+      );
+    }
+  };
+
+  ////// eventHandlers ////////////////
 
   handleClick = e => {
     if (this.props.phase === true) {
@@ -93,6 +117,9 @@ class ShipBoard extends React.Component {
   handleHover = e => {
     this.hoverUpdate(e, this.state.horizantal, this.state.currentShip);
   };
+ 
+
+  ///   hover to see where ship will be placed 
 
   hoverUpdate = (e, horizantal, currentShip) => {
     clearHover(this.state.board);
@@ -123,28 +150,23 @@ class ShipBoard extends React.Component {
     this.setState({ board: newBoard });
   };
 
-  setCurrentShip = currentShip => {
-    if (this.state.currentShip < this.state.ships.length - 1) {
-      this.setState({ currentShip: currentShip + 1 });
-    } else {
-      this.setState(
-        {
-          board: gridGenerator(),
-          horizantal: true,
-          currentShip: 0,
-          ships: shipGenerator()
-        },
-        () => this.props.updatePhase()
-      );
-    }
-  };
+  
 
   flipDirection = () => {
     this.setState({ horizantal: !this.state.horizantal });
   };
 
+
+
+
+  ///// render helpers////////////////
+
   renderButton = () => {
-    return <button onClick={this.flipDirection}>Flip Direction</button>;
+    return (
+      <button className="button" onClick={this.flipDirection}>
+        Flip Direction
+      </button>
+    );
   };
 
   renderSquares = () => {
@@ -167,7 +189,8 @@ class ShipBoard extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="shipContainer">
+        <h1>BattleShip</h1>
         <h2>Place your Ships {this.props.activePlayer}</h2>
         <div className="grid-container">{this.renderSquares()}</div>
         {this.renderButton()}

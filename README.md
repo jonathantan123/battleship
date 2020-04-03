@@ -1,68 +1,29 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## BattleShip 
+________________
+ Classic Battleship in React. 
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### `Tech`
 
-### `yarn test`
+This app is built with React 
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### `1. Launch and Play `
+1. &nbsp; Fork and Clone this Repo 
+2.  &nbsp; Run npm install or yarn install
+2.  &nbsp; Run npm start or yarn start
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### `Game Instructions`
+1. &nbsp; Game begins on ship placement phase. Player 1 begins by placing ships on board while Player 2 looks away. 
+2.  &nbsp; Player 1 pass computer to player 2 to place ships. 
+3.  &nbsp; Once finished, the game will enter the missile firing phase. Beginning with player 1, click on a coordinate on the grid to fire a missle. 
+3.  &nbsp; If the missle hits a ship on Player 2's board, you will be alerted with either "hit" or "sunk". Otherwise, you will be alerted with a "miss", indicating that your missle hit an empty spot. Pass the computer to Player 2 after your turn. 
+4.  &nbsp;  Alternate turns until a winner is declared. The first player to destory all opponent's ships is declared the winner. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+E

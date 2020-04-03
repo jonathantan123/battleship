@@ -15,10 +15,12 @@ class Game extends React.Component {
     player2: {
       shipsBoard: gridGenerator(),
       ships: []
-    },
-    gameOver: false
+    }
   };
 
+
+////  Based on who the active player is, update opponent's ships grid
+///   to reflect missles launched by active player
   updateGrid = (e, value) => {
     let state;
     let row = parseInt(e.target.dataset.row);
@@ -36,6 +38,9 @@ class Game extends React.Component {
     this.setState({ shipsBoard: state });
   };
 
+  /// sets phase to firing after both players have finished ship placement. 
+  /// 
+
   updatePhase = () => {
     if (this.state.activePlayer === "Player 2")
       this.setState({ placing: !this.state.placing, activePlayer: "Player 1" });
@@ -46,8 +51,8 @@ class Game extends React.Component {
 
   updateWinner = () => {
     alert(`Game Over! Congrats ${this.state.activePlayer}`);
+    //// reset game to beginning
     this.setState({ placing: true, activePlayer: "Player 1" });
-    this.setState({ gameOver: true });
   };
 
   renderMissleBoard = () => {
@@ -65,12 +70,11 @@ class Game extends React.Component {
         opponent={opponent}
         updateGrid={this.updateGrid}
         updateWinner={this.updateWinner}
-        switchPlayer={this.switchPlayer}
       />
     );
   };
 
-  //// saving ship positions in array to check hits
+  //// saving ship positions and board to state 
   savedPositions = (array, shipsArray, placedBoard, player) => {
     if (player === "Player 1") {
       this.setState({
@@ -93,7 +97,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         {this.state.placing ? (
-          <div className="shipsContainer">
+          <div className="boardContainer">
             <ShipBoard
               activePlayer={this.state.activePlayer}
               savedPositions={this.savedPositions}
@@ -102,7 +106,7 @@ class Game extends React.Component {
             />
           </div>
         ) : (
-          <React.Fragment>{this.renderMissleBoard()}</React.Fragment>
+          <div className="boardContainer">{this.renderMissleBoard()}</div>
         )}
       </div>
     );

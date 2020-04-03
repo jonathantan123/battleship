@@ -2,9 +2,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
+
 
 }
-.shipsContainer{
+.boardContainer{
     display: flex;
     flex-direction: row;
     justify-content: space-around;

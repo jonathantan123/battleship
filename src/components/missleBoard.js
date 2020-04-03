@@ -2,8 +2,6 @@ import React from "react";
 import "./shipBoard.css";
 import MissleBoardSquare from "./missleBoardSquare";
 
-
-
 class MissleBoard extends React.Component {
   state = {
     totalShips: 5
@@ -15,6 +13,7 @@ class MissleBoard extends React.Component {
     }
   };
 
+  /// Check to see if a hit is a sink. If so decrement total ships by 1. 
   checkSunk = ship => {
     let sunk = true;
 
@@ -39,13 +38,16 @@ class MissleBoard extends React.Component {
 
     let ships = this.props.opponent.ships;
 
+    /// go through opponent's ships and see if the position exists
+
     let ship = ships.find(ship => {
       return ship.positions.some(position => {
         return position.coordinates === e.target.dataset.coord;
       });
     });
 
-    //// if the coordinate exists on opposite player board
+    //// if the coordinate exists on opponent's board, set the status of the 
+    //// coordinate and update opponent gameboard apporiately
 
     if (ship) {
       let hit = ship.positions.find(
@@ -73,10 +75,8 @@ class MissleBoard extends React.Component {
   };
 
   renderSquares = () => {
-    ;
     return this.props.opponent.shipsBoard.map((row, i) => {
       return row.map((square, c) => {
-          
         return (
           <MissleBoardSquare
             key={`(${i},${c})`}
