@@ -3,8 +3,11 @@
     grid-gap: 0;
     grid-template-columns: repeat(10,1fr);
     grid-template-rows: repeat(10,1fr);
-    height: 300px;
-    width: 300px;
+    height: 600px;
+    width: 600px;
+    background-image: url("https://2s7gjr373w3x22jf92z99mgm5w-wpengine.netdna-ssl.com/wp-content/uploads/2020/01/Radar_shutterstock_Oleksii-Lishchyshyn.jpg");
+    background-position: center;
+
 }
 .square{
     border: 1px solid black;
