@@ -31,13 +31,6 @@ let ships = [
 ];
 
 class ShipBoard extends React.Component {
-  state = {
-    board: "",
-    horizantal: true,
-    currentShip: 0,
-    ships: ships
-  };
-
   gridGenerator = () => {
     let grid = [];
     let length = 10;
@@ -52,9 +45,16 @@ class ShipBoard extends React.Component {
     return grid;
   };
 
-  componentWillMount() {
-    this.setState({ board: this.gridGenerator() });
-  }
+  state = {
+    board: this.gridGenerator(),
+    horizantal: true,
+    currentShip: 0,
+    ships: ships
+  };
+
+  // componentWillMount() {
+  //   this.setState({ board: this.gridGenerator() });
+  // }
 
   ///// check if occupied
 
@@ -126,7 +126,7 @@ class ShipBoard extends React.Component {
       this.setState({ board: newBoard });
       this.setPositions(positions, currentShip);
       this.setCurrentShip(currentShip);
-      this.props.savedPositions(positions, this.state.ships, this.state.board);
+      this.props.savedPositions(positions, this.state.ships, this.state.board, this.props.player);
     }
   };
 
@@ -138,38 +138,29 @@ class ShipBoard extends React.Component {
     this.setState({ ships });
   };
 
-  handleHover = e => {};
-
   handleClick = e => {
-    
     if (this.props.phase === true) {
       this.placeShip(e, this.state.horizantal, this.state.currentShip);
     } else {
-      
       return;
     }
   };
 
   setCurrentShip = currentShip => {
-    
-    if (this.state.currentShip < this.state.ships.length - 1 ) {
+    if (this.state.currentShip < this.state.ships.length - 1) {
       this.setState({ currentShip: currentShip + 1 });
     } else {
-      
-      this.props.updatePhase()
-    }
-  };
+      debugger;
 
-  renderOptions = () => {
-    return (
-      <ul onClick={this.handleShipSelect}>
-        <li>Ship 1</li>
-        <li>Ship 2 </li>
-        <li>Ship 3 </li>
-        <li>Ship 4</li>
-        <li>Ship 5</li>
-      </ul>
-    );
+      this.props.updatePhase();
+
+      this.setState({
+        board: this.gridGenerator(),
+        horizantal: true,
+        currentShip: 0,
+        ships: ships
+      });
+    }
   };
 
   flipDirection = () => {
@@ -198,10 +189,10 @@ class ShipBoard extends React.Component {
   };
 
   render() {
+    debugger;
     return (
       <div>
         <div className="grid-container">{this.renderSquares()}</div>
-        {this.renderOptions()}
         {this.renderButton()}
       </div>
     );

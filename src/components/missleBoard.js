@@ -27,7 +27,6 @@ class MissleBoard extends React.Component {
   }
 
   checkWin = () => {
-      debugger
     if (this.state.totalShips === 0) {
       this.props.updateWinner();
     }
