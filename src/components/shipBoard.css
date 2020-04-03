@@ -1,0 +1,16 @@
+.grid-container{
+    display: grid;
+    grid-gap: 0;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(10,1fr);
+    height: 300px;
+    width: 300px;
+}
+.square{
+    border: 1px solid black;
+}
+
+.chosen {
+background-color: red;
+    
+}

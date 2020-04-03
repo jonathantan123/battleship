@@ -1,0 +1,13 @@
+.square{
+    border: 1px solid black;
+}
+
+.squarehit {
+    background-color:green;
+    border: 1px solid black;
+}
+.squaremiss {
+    background-color:black;
+    border: 1px solid black;
+}
+

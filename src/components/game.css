@@ -1,0 +1,12 @@
+.game{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+.shipsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
