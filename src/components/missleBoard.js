@@ -71,7 +71,7 @@ class MissleBoard extends React.Component {
   };
 
   renderSquares = () => {
-      debugger
+    ;
     return this.props.opponent.shipsBoard.map((row, i) => {
       return row.map((square, c) => {
         return (

@@ -76,7 +76,7 @@ class Game extends React.Component {
 
   //// saving ship positions in array to check hits
   savedPositions = (array, shipsArray, placedBoard, player) => {
-    debugger;
+    ;
     if (player === "Player 1") {
       this.setState({
         player1: {
