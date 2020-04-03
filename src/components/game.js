@@ -20,24 +20,20 @@ class Game extends React.Component {
   };
 
   updateGrid = (e, value) => {
+    let state;
+    let row = parseInt(e.target.dataset.row);
+    let col = parseInt(e.target.dataset.col);
+
     if (this.state.activePlayer === "Player 1") {
-      let state = this.state.player2.shipsBoard;
-      let row = parseInt(e.target.dataset.row);
-      let col = parseInt(e.target.dataset.col);
-
-      state[row][col] = value;
-
-      this.setState({ shipsBoard: state });
+      state = this.state.player2.shipsBoard;
       this.setState({ activePlayer: "Player 2" });
     } else {
-      let state = this.state.player1.shipsBoard;
-      let row = parseInt(e.target.dataset.row);
-      let col = parseInt(e.target.dataset.col);
-      state[row][col] = value;
-
-      this.setState({ shipsBoard: state });
+      state = this.state.player1.shipsBoard;
       this.setState({ activePlayer: "Player 1" });
     }
+
+    state[row][col] = value;
+    this.setState({ shipsBoard: state });
   };
 
   updatePhase = () => {
@@ -76,7 +72,6 @@ class Game extends React.Component {
 
   //// saving ship positions in array to check hits
   savedPositions = (array, shipsArray, placedBoard, player) => {
-    ;
     if (player === "Player 1") {
       this.setState({
         player1: {

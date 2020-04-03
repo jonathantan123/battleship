@@ -31,7 +31,7 @@ class ShipBoard extends React.Component {
     } else {
       if (row + size <= newBoard.length) {
         for (let i = 0; i < size; i++) {
-          if (newBoard[row][col + i] !== "null") {
+          if (newBoard[row + i][col] !== "null") {
             isTaken = true;
           }
         }
@@ -41,15 +41,15 @@ class ShipBoard extends React.Component {
   };
 
   placeShip = (e, horizantal, currentShip) => {
+    debugger;
     let col = parseInt(e.target.dataset.col);
     let row = parseInt(e.target.dataset.row);
-
     let newBoard = this.state.board;
-
     let size = this.state.ships[currentShip].size;
     let type = this.state.ships[currentShip].type;
 
     let positions = [];
+    debugger;
 
     if (
       this.checkOccupied(e, this.state.horizantal, this.state.currentShip) ===
@@ -65,8 +65,12 @@ class ShipBoard extends React.Component {
               status: false
             });
           }
+        } else {
+          alert("out of bounds ");
+          return;
         }
       } else {
+        debugger;
         if (row + size <= newBoard.length) {
           for (let i = 0; i < size; i++) {
             newBoard[row + i][col] = type;
@@ -75,12 +79,15 @@ class ShipBoard extends React.Component {
               status: false
             });
           }
+        } else {
+          alert("out of bounds ");
+          return;
         }
       }
       this.setState({ board: newBoard });
       this.setPositions(positions, currentShip);
       this.setCurrentShip(currentShip);
-      
+
       this.props.savedPositions(
         positions,
         this.state.ships,
