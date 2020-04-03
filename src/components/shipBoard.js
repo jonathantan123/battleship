@@ -1,91 +1,15 @@
 import React from "react";
 import "./shipBoard.css";
 import GridSquare from "./gridSquare";
-
-let ships = [
-  {
-    type: "s5",
-    size: 5,
-    positions: []
-  },
-  {
-    type: "s4",
-    size: 4,
-    positions: []
-  },
-  {
-    type: "s3",
-    size: 3,
-    positions: []
-  },
-  {
-    type: "s2",
-    size: 2,
-    positions: []
-  },
-  {
-    type: "s1",
-    size: 1,
-    positions: []
-  }
-];
+import { gridGenerator, shipGenerator } from "../utils";
 
 class ShipBoard extends React.Component {
-
-
-  shipGenerator = () => {
-
-    let ships = [
-      {
-        type: "s5",
-        size: 5,
-        positions: []
-      },
-      {
-        type: "s4",
-        size: 4,
-        positions: []
-      },
-      {
-        type: "s3",
-        size: 3,
-        positions: []
-      },
-      {
-        type: "s2",
-        size: 2,
-        positions: []
-      },
-      {
-        type: "s1",
-        size: 1,
-        positions: []
-      }
-    ]; 
-
-    return ships
-  }
-  gridGenerator = () => {
-    let grid = [];
-    let length = 10;
-    for (let r = 0; r < length; r++) {
-      let row = [];
-      for (let c = 0; c < length; c++) {
-        row.push("null");
-      }
-      grid.push(row);
-    }
-
-    return grid;
-  };
-
   state = {
-    board: this.gridGenerator(),
+    board: gridGenerator(),
     horizantal: true,
     currentShip: 0,
-    ships: this.shipGenerator()
+    ships: shipGenerator()
   };
-
 
   ///// check if occupied
 
@@ -156,18 +80,21 @@ class ShipBoard extends React.Component {
       this.setState({ board: newBoard });
       this.setPositions(positions, currentShip);
       this.setCurrentShip(currentShip);
-      this.props.savedPositions(positions, this.state.ships, this.state.board, this.props.player);
+      
+      this.props.savedPositions(
+        positions,
+        this.state.ships,
+        this.state.board,
+        this.props.activePlayer
+      );
     }
   };
 
   setPositions = (positions, currentShip) => {
-    
     let ships = [...this.state.ships];
     let ship = ships[currentShip];
     ship.positions = positions;
     ships[currentShip] = ship;
-
-
 
     this.setState({ ships });
   };
@@ -184,20 +111,15 @@ class ShipBoard extends React.Component {
     if (this.state.currentShip < this.state.ships.length - 1) {
       this.setState({ currentShip: currentShip + 1 });
     } else {
-      
-      ;
-      this.setState({
-        board: this.gridGenerator(),
-        horizantal: true,
-        currentShip: 0,
-        ships: ships
-      }, ()=> this.props.updatePhase());
-
-
-
-   
-
-     
+      this.setState(
+        {
+          board: gridGenerator(),
+          horizantal: true,
+          currentShip: 0,
+          ships: shipGenerator()
+        },
+        () => this.props.updatePhase()
+      );
     }
   };
 
@@ -227,10 +149,9 @@ class ShipBoard extends React.Component {
   };
 
   render() {
-    
     return (
       <div>
-  <h2>Place your Ships {this.props.activePlayer}</h2>
+        <h2>Place your Ships {this.props.activePlayer}</h2>
         <div className="grid-container">{this.renderSquares()}</div>
         {this.renderButton()}
       </div>

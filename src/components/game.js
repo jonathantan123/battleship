@@ -1,44 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
 import ShipBoard from "./shipBoard";
 import "./game.css";
 import MissleBoard from "./missleBoard";
+import { gridGenerator } from "../utils";
 
 class Game extends React.Component {
-  gridGenerator = () => {
-    let grid = [];
-    let length = 10;
-    for (let r = 0; r < length; r++) {
-      let row = [];
-      for (let c = 0; c < length; c++) {
-        row.push("null");
-      }
-      grid.push(row);
-    }
-
-    return grid;
-  };
-
   state = {
     activePlayer: "Player 1",
     placing: true,
     player1: {
-      positions: [],
-      shipsBoard: this.gridGenerator(),
-      ships: [],
-      attackboard: []
+      shipsBoard: gridGenerator(),
+      ships: []
     },
     player2: {
-      positions: [],
-      shipsBoard: this.gridGenerator(),
-      ships: [],
-      attackboard: []
+      shipsBoard: gridGenerator(),
+      ships: []
     },
     gameOver: false
   };
 
   updateGrid = (e, value) => {
-    
-    
     if (this.state.activePlayer === "Player 1") {
       let state = this.state.player2.shipsBoard;
       let row = parseInt(e.target.dataset.row);
@@ -47,7 +28,7 @@ class Game extends React.Component {
       state[row][col] = value;
 
       this.setState({ shipsBoard: state });
-      this.setState({activePlayer: "Player 2"})
+      this.setState({ activePlayer: "Player 2" });
     } else {
       let state = this.state.player1.shipsBoard;
       let row = parseInt(e.target.dataset.row);
@@ -55,7 +36,7 @@ class Game extends React.Component {
       state[row][col] = value;
 
       this.setState({ shipsBoard: state });
-      this.setState({activePlayer: "Player 1"})
+      this.setState({ activePlayer: "Player 1" });
     }
   };
 
@@ -68,69 +49,35 @@ class Game extends React.Component {
   };
 
   updateWinner = () => {
-    alert("game Over")
-    this.setState({placing: true, 
-    activePlayer: "Player 1"})
+    alert(`Game Over! Congrats ${this.state.activePlayer}`);
+    this.setState({ placing: true, activePlayer: "Player 1" });
     this.setState({ gameOver: true });
   };
 
-  /// Conditional Rendering starts with player1 Board
-
-  renderShipBoard = () => {
-    if (this.state.activePlayer === "Player 1") {
-      return (
-        <ShipBoard
-        activePlayer={this.state.activePlayer}
-          player={"Player 1"}
-          savedPositions={this.savedPositions}
-          phase={this.state.placing}
-          updatePhase={this.updatePhase}
-        />
-      );
-    } else {
-      return (
-        <ShipBoard
-        activePlayer={this.state.activePlayer}
-          player={"Player 2"}
-          savedPositions={this.savedPositions}
-          phase={this.state.placing}
-          updatePhase={this.updatePhase}
-        />
-      );
-    }
-  };
-
   renderMissleBoard = () => {
-    
-    
+    let opponent;
+
     if (this.state.activePlayer === "Player 1") {
-      return (
-        <MissleBoard
-        activePlayer={this.state.activePlayer}
-          player={this.state.player2}
-          updateGrid={this.updateGrid}
-          updateWinner={this.updateWinner}
-          switchPlayer= {this.switchPlayer}
-        />
-      );
+      opponent = this.state.player2;
     } else {
-      
-      return (
-        <MissleBoard
-        activePlayer={this.state.activePlayer}
-          player={this.state.player1}
-          updateGrid={this.updateGrid}
-          updateWinner={this.updateWinner}
-          switchPlayer= {this.switchPlayer}
-        />
-      );
+      opponent = this.state.player1;
     }
+
+    return (
+      <MissleBoard
+        activePlayer={this.state.activePlayer}
+        opponent={opponent}
+        updateGrid={this.updateGrid}
+        updateWinner={this.updateWinner}
+        switchPlayer={this.switchPlayer}
+      />
+    );
   };
 
   //// saving ship positions in array to check hits
   savedPositions = (array, shipsArray, placedBoard, player) => {
+    debugger;
     if (player === "Player 1") {
-      
       this.setState({
         player1: {
           ships: shipsArray,
@@ -138,7 +85,6 @@ class Game extends React.Component {
         }
       });
     } else {
-      
       this.setState({
         player2: {
           ships: shipsArray,
@@ -152,7 +98,14 @@ class Game extends React.Component {
     return (
       <div className="game">
         {this.state.placing ? (
-          <div className="shipsContainer">{this.renderShipBoard()}</div>
+          <div className="shipsContainer">
+            <ShipBoard
+              activePlayer={this.state.activePlayer}
+              savedPositions={this.savedPositions}
+              phase={this.state.placing}
+              updatePhase={this.updatePhase}
+            />
+          </div>
         ) : (
           <React.Fragment>{this.renderMissleBoard()}</React.Fragment>
         )}
