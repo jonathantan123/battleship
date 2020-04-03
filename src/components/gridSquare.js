@@ -30,7 +30,7 @@ function GridSquare(props) {
       data-col={props.column}
       data-value={props.value}
       data-coord={props.coordinates}
-      // onMouseOver={props.handleHover}
+      onMouseOver={props.handleHover}
     ></div>
   );
 }

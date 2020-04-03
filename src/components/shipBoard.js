@@ -2,7 +2,7 @@ import React from "react";
 import "./shipBoard.css";
 import GridSquare from "./gridSquare";
 import { gridGenerator, shipGenerator } from "../utils";
-import { checkOccupied } from "../shipsUtils";
+import { checkOccupied, clearHover } from "../shipsUtils";
 
 class ShipBoard extends React.Component {
   state = {
@@ -34,6 +34,7 @@ class ShipBoard extends React.Component {
         if (col + size <= newBoard[row].length) {
           for (let i = 0; i < size; i++) {
             newBoard[row][col + i].value = type;
+            newBoard[row][col + i].hover = false;
             positions.push({
               coordinates: `(${row},${col + i})`,
               status: false
@@ -47,6 +48,7 @@ class ShipBoard extends React.Component {
         if (row + size <= newBoard.length) {
           for (let i = 0; i < size; i++) {
             newBoard[row + i][col].value = type;
+            newBoard[row + i][col].hover = false;
             positions.push({
               coordinates: `(${row + i},${col})`,
               status: false
@@ -88,37 +90,38 @@ class ShipBoard extends React.Component {
     }
   };
 
-  // handleHover = e => {
-  //   this.hoverUpdate(e, this.state.horizantal, this.state.currentShip);
-  // };
+  handleHover = e => {
+    this.hoverUpdate(e, this.state.horizantal, this.state.currentShip);
+  };
 
-  // hoverUpdate = (e, horizantal, currentShip) => {
-  //   let col = parseInt(e.target.dataset.col);
-  //   let row = parseInt(e.target.dataset.row);
-  //   let newBoard = this.state.board;
-  //   let size = this.state.ships[currentShip].size;
-  //   let type = "active";
+  hoverUpdate = (e, horizantal, currentShip) => {
+    clearHover(this.state.board);
 
-  //   if (horizantal === true) {
-  //     if (col + size <= newBoard[row].length) {
-  //       for (let i = 0; i < size; i++) {
-  //         newBoard[row][col + i] = type;
-  //       }
-  //     } else {
-  //       return;
-  //     }
-  //   } else {
-  //     if (row + size <= newBoard.length) {
-  //       for (let i = 0; i < size; i++) {
-  //         newBoard[row + i][col] = type;
-  //       }
-  //     } else {
-  //       return;
-  //     }
-  //   }
+    let col = parseInt(e.target.dataset.col);
+    let row = parseInt(e.target.dataset.row);
+    let newBoard = this.state.board;
+    let size = this.state.ships[currentShip].size;
 
-  //   this.setState({ board: newBoard });
-  // };
+    if (horizantal === true) {
+      if (col + size <= newBoard[row].length) {
+        for (let i = 0; i < size; i++) {
+          newBoard[row][col + i].hover = true;
+        }
+      } else {
+        return;
+      }
+    } else {
+      if (row + size <= newBoard.length) {
+        for (let i = 0; i < size; i++) {
+          newBoard[row + i][col].hover = true;
+        }
+      } else {
+        return;
+      }
+    }
+
+    this.setState({ board: newBoard });
+  };
 
   setCurrentShip = currentShip => {
     if (this.state.currentShip < this.state.ships.length - 1) {
@@ -155,7 +158,7 @@ class ShipBoard extends React.Component {
             column={`${c}`}
             value={square}
             clickHandler={this.handleClick}
-            // handleHover={this.handleHover}
+            handleHover={this.handleHover}
           />
         );
       });
@@ -163,7 +166,6 @@ class ShipBoard extends React.Component {
   };
 
   render() {
-    debugger;
     return (
       <div>
         <h2>Place your Ships {this.props.activePlayer}</h2>
