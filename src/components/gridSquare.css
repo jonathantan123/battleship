@@ -1,14 +1,14 @@
 .square{
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 .occupied {
     background-color: red;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 .active {
     background-color: gray;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 

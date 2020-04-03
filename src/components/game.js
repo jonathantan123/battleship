@@ -49,8 +49,19 @@ class Game extends React.Component {
     }
   };
 
+  /// known issue: active player updates before check win is completed. 
+  /// Workaround for now: set winner to opposite of active player 
   updateWinner = () => {
-    alert(`Game Over! Congrats ${this.state.activePlayer}`);
+    
+    let winner 
+
+    if(this.state.activePlayer === "Player 1") { 
+      winner = "Player 2"
+    } else { 
+      winner = "Player 1"
+    }
+    alert(`Game Over! Congrats ${winner}`);
+    
     //// reset game to beginning
     this.setState({ placing: true, activePlayer: "Player 1" });
   };

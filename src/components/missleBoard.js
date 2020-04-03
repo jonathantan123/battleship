@@ -8,6 +8,7 @@ class MissleBoard extends React.Component {
   };
 
   checkWin = () => {
+      
     if (this.state.totalShips === 0) {
       this.props.updateWinner();
     }
@@ -16,6 +17,7 @@ class MissleBoard extends React.Component {
   /// Check to see if a hit is a sink. If so decrement total ships by 1. 
   checkSunk = ship => {
     let sunk = true;
+    
 
     ship.positions.forEach(pos => {
       if (pos.status === false) {
@@ -25,6 +27,7 @@ class MissleBoard extends React.Component {
 
     if (sunk) {
       alert("Sunk!");
+      
       this.setState({ totalShips: this.state.totalShips - 1 }, () =>
         this.checkWin()
       );
@@ -59,6 +62,7 @@ class MissleBoard extends React.Component {
         return;
       } else {
         hit.status = "hit";
+        
         this.checkSunk(ship);
         value = "hit";
       }
