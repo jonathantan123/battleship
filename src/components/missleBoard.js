@@ -21,7 +21,6 @@ class MissleBoard extends React.Component {
     return grid;
   };
 
-
   checkWin = () => {
     if (this.state.totalShips === 0) {
       this.props.updateWinner();
@@ -38,24 +37,20 @@ class MissleBoard extends React.Component {
     });
 
     if (sunk) {
+        debugger
       alert("sunk!");
-      this.setState({ totalShips: this.state.totalShips - 1 }, ()=> this.checkWin());
-      
+      this.setState({ totalShips: this.state.totalShips - 1 }, () =>
+     this.checkWin()
+      );
     } else {
       alert("hit");
     }
-
-    
   };
 
   checkMissle = e => {
-      debugger
-
     let value = "miss";
 
     let ships = this.props.player.ships;
-
-    debugger
 
     let ship = ships.find(ship => {
       return ship.positions.some(position => {
@@ -82,8 +77,9 @@ class MissleBoard extends React.Component {
       value = "miss";
       alert("miss");
     }
+    
+    
     this.props.updateGrid(e, value);
-
   };
 
   handleClick = e => {
@@ -91,7 +87,6 @@ class MissleBoard extends React.Component {
   };
 
   renderSquares = () => {
-      debugger
     return this.props.player.shipsBoard.map((row, i) => {
       return row.map((square, c) => {
         return (
@@ -109,9 +104,9 @@ class MissleBoard extends React.Component {
   };
 
   render() {
-      debugger
     return (
       <div>
+        <h3>Fire a missle {this.props.activePlayer}</h3>
         <div className="grid-container">{this.renderSquares()}</div>
       </div>
     );

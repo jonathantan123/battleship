@@ -19,7 +19,7 @@ class Game extends React.Component {
   };
 
   state = {
-    activePlayer: "player1",
+    activePlayer: "Player 1",
     placing: true,
     player1: {
       positions: [],
@@ -37,8 +37,9 @@ class Game extends React.Component {
   };
 
   updateGrid = (e, value) => {
-    debugger
-    if (this.state.activePlayer === "player1") {
+    
+    
+    if (this.state.activePlayer === "Player 1") {
       let state = this.state.player2.shipsBoard;
       let row = parseInt(e.target.dataset.row);
       let col = parseInt(e.target.dataset.col);
@@ -46,38 +47,41 @@ class Game extends React.Component {
       state[row][col] = value;
 
       this.setState({ shipsBoard: state });
-      this.setState({activePlayer: "player2"})
+      this.setState({activePlayer: "Player 2"})
     } else {
       let state = this.state.player1.shipsBoard;
       let row = parseInt(e.target.dataset.row);
       let col = parseInt(e.target.dataset.col);
-
       state[row][col] = value;
 
       this.setState({ shipsBoard: state });
-      this.setState({activePlayer: "player1"})
+      this.setState({activePlayer: "Player 1"})
     }
   };
 
   updatePhase = () => {
-    if (this.state.activePlayer === "player2")
-      this.setState({ placing: !this.state.placing, activePlayer: "player1" });
+    if (this.state.activePlayer === "Player 2")
+      this.setState({ placing: !this.state.placing, activePlayer: "Player 1" });
     else {
-      this.setState({ activePlayer: "player2" });
+      this.setState({ activePlayer: "Player 2" });
     }
   };
 
   updateWinner = () => {
+    alert("game Over")
+    this.setState({placing: true, 
+    activePlayer: "Player 1"})
     this.setState({ gameOver: true });
   };
 
-  /// Conditional Rendering starts with player 1 Board
+  /// Conditional Rendering starts with player1 Board
 
   renderShipBoard = () => {
-    if (this.state.activePlayer === "player1") {
+    if (this.state.activePlayer === "Player 1") {
       return (
         <ShipBoard
-          player={"player1"}
+        activePlayer={this.state.activePlayer}
+          player={"Player 1"}
           savedPositions={this.savedPositions}
           phase={this.state.placing}
           updatePhase={this.updatePhase}
@@ -86,7 +90,8 @@ class Game extends React.Component {
     } else {
       return (
         <ShipBoard
-          player={"player2"}
+        activePlayer={this.state.activePlayer}
+          player={"Player 2"}
           savedPositions={this.savedPositions}
           phase={this.state.placing}
           updatePhase={this.updatePhase}
@@ -96,10 +101,12 @@ class Game extends React.Component {
   };
 
   renderMissleBoard = () => {
-    debugger
-    if (this.state.activePlayer === "player1") {
+    
+    
+    if (this.state.activePlayer === "Player 1") {
       return (
         <MissleBoard
+        activePlayer={this.state.activePlayer}
           player={this.state.player2}
           updateGrid={this.updateGrid}
           updateWinner={this.updateWinner}
@@ -107,9 +114,10 @@ class Game extends React.Component {
         />
       );
     } else {
-      debugger
+      
       return (
         <MissleBoard
+        activePlayer={this.state.activePlayer}
           player={this.state.player1}
           updateGrid={this.updateGrid}
           updateWinner={this.updateWinner}
@@ -121,20 +129,18 @@ class Game extends React.Component {
 
   //// saving ship positions in array to check hits
   savedPositions = (array, shipsArray, placedBoard, player) => {
-    if (player === "player1") {
-      debugger
+    if (player === "Player 1") {
+      
       this.setState({
         player1: {
-          // positions: [...this.state.player1.positions, ...array],
           ships: shipsArray,
           shipsBoard: placedBoard
         }
       });
     } else {
-      debugger
+      
       this.setState({
         player2: {
-          // positions: [...this.state.player1.positions, ...array],
           ships: shipsArray,
           shipsBoard: placedBoard
         }

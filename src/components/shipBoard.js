@@ -153,9 +153,6 @@ class ShipBoard extends React.Component {
           }
         }
       }
-
-   
-
       this.setState({ board: newBoard });
       this.setPositions(positions, currentShip);
       this.setCurrentShip(currentShip);
@@ -187,7 +184,7 @@ class ShipBoard extends React.Component {
     if (this.state.currentShip < this.state.ships.length - 1) {
       this.setState({ currentShip: currentShip + 1 });
     } else {
-      debugger
+      
       ;
       this.setState({
         board: this.gridGenerator(),
@@ -230,9 +227,10 @@ class ShipBoard extends React.Component {
   };
 
   render() {
-    debugger
+    
     return (
       <div>
+  <h2>Place your Ships {this.props.activePlayer}</h2>
         <div className="grid-container">{this.renderSquares()}</div>
         {this.renderButton()}
       </div>
