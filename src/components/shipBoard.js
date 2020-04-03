@@ -31,6 +31,40 @@ let ships = [
 ];
 
 class ShipBoard extends React.Component {
+
+
+  shipGenerator = () => {
+
+    let ships = [
+      {
+        type: "s5",
+        size: 5,
+        positions: []
+      },
+      {
+        type: "s4",
+        size: 4,
+        positions: []
+      },
+      {
+        type: "s3",
+        size: 3,
+        positions: []
+      },
+      {
+        type: "s2",
+        size: 2,
+        positions: []
+      },
+      {
+        type: "s1",
+        size: 1,
+        positions: []
+      }
+    ]; 
+
+    return ships
+  }
   gridGenerator = () => {
     let grid = [];
     let length = 10;
@@ -49,12 +83,9 @@ class ShipBoard extends React.Component {
     board: this.gridGenerator(),
     horizantal: true,
     currentShip: 0,
-    ships: ships
+    ships: this.shipGenerator()
   };
 
-  // componentWillMount() {
-  //   this.setState({ board: this.gridGenerator() });
-  // }
 
   ///// check if occupied
 
@@ -123,6 +154,8 @@ class ShipBoard extends React.Component {
         }
       }
 
+   
+
       this.setState({ board: newBoard });
       this.setPositions(positions, currentShip);
       this.setCurrentShip(currentShip);
@@ -131,10 +164,14 @@ class ShipBoard extends React.Component {
   };
 
   setPositions = (positions, currentShip) => {
+    
     let ships = [...this.state.ships];
     let ship = ships[currentShip];
     ship.positions = positions;
     ships[currentShip] = ship;
+
+
+
     this.setState({ ships });
   };
 
@@ -150,16 +187,20 @@ class ShipBoard extends React.Component {
     if (this.state.currentShip < this.state.ships.length - 1) {
       this.setState({ currentShip: currentShip + 1 });
     } else {
-      debugger;
-
-      this.props.updatePhase();
-
+      debugger
+      ;
       this.setState({
         board: this.gridGenerator(),
         horizantal: true,
         currentShip: 0,
         ships: ships
-      });
+      }, ()=> this.props.updatePhase());
+
+
+
+   
+
+     
     }
   };
 
@@ -189,7 +230,7 @@ class ShipBoard extends React.Component {
   };
 
   render() {
-    debugger;
+    debugger
     return (
       <div>
         <div className="grid-container">{this.renderSquares()}</div>

@@ -4,7 +4,6 @@ import MissleBoardSquare from "./missleBoardSquare";
 
 class MissleBoard extends React.Component {
   state = {
-    board: "",
     totalShips: 5
   };
 
@@ -22,9 +21,6 @@ class MissleBoard extends React.Component {
     return grid;
   };
 
-  componentWillMount() {
-    this.setState({ board: this.props.player.shipsBoard });
-  }
 
   checkWin = () => {
     if (this.state.totalShips === 0) {
@@ -53,8 +49,13 @@ class MissleBoard extends React.Component {
   };
 
   checkMissle = e => {
+      debugger
+
     let value = "miss";
+
     let ships = this.props.player.ships;
+
+    debugger
 
     let ship = ships.find(ship => {
       return ship.positions.some(position => {
@@ -82,6 +83,7 @@ class MissleBoard extends React.Component {
       alert("miss");
     }
     this.props.updateGrid(e, value);
+
   };
 
   handleClick = e => {
@@ -89,6 +91,7 @@ class MissleBoard extends React.Component {
   };
 
   renderSquares = () => {
+      debugger
     return this.props.player.shipsBoard.map((row, i) => {
       return row.map((square, c) => {
         return (
@@ -106,6 +109,7 @@ class MissleBoard extends React.Component {
   };
 
   render() {
+      debugger
     return (
       <div>
         <div className="grid-container">{this.renderSquares()}</div>
