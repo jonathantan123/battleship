@@ -2,6 +2,7 @@ import React from "react";
 import "./gridSquare.css";
 
 function GridSquare(props) {
+  /// update classnames of div to change display
   let updateClassName = square => {
     let className;
 
